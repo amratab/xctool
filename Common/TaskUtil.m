@@ -286,6 +286,10 @@ void ReadOutputsAndFeedOuputLinesToBlockOnQueue(
 
 NSDictionary *LaunchTaskAndCaptureOutput(NSTask *task, NSString *description)
 {
+  return LaunchTaskAndCaptureOutputWithTimeoutAndRetry(task, description, 0.0f, 0);
+}
+
+NSDictionary *LaunchTaskAndCaptureOutputWithTimeoutAndRetry(NSTask *task, NSString *description, NSTimeInterval timeout, NSUInteger retry){
   int stdoutPipefd[2];
   pipe(stdoutPipefd);
   NSFileHandle *stdoutHandle = [[NSFileHandle alloc] initWithFileDescriptor:stdoutPipefd[1]];
@@ -303,6 +307,7 @@ NSDictionary *LaunchTaskAndCaptureOutput(NSTask *task, NSString *description)
 
   NSMutableArray *stdoutArray = [NSMutableArray new];
   NSMutableArray *stderrArray = [NSMutableArray new];
+  __block BOOL didTimeout = NO;
 
   ReadOutputsAndFeedOuputLinesToBlockOnQueue(fildes, 2, ^(int fd, NSString *line) {
     if (fd == stdoutReadFd) {
@@ -313,10 +318,28 @@ NSDictionary *LaunchTaskAndCaptureOutput(NSTask *task, NSString *description)
   }, NULL, ^{
     LaunchTaskAndMaybeLogCommand(task, description);
     [task waitUntilExit];
+    dispatch_group_t taskTimeoutGroup = dispatch_group_create();
+    [task waitUntilExit];
+    dispatch_group_async(taskTimeoutGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+          LaunchTaskAndMaybeLogCommand(task, description);
+          [task waitUntilExit];
+          });
+      dispatch_time_t waitUntil = timeout == 0.0f ? DISPATCH_TIME_FOREVER : dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC));
+      didTimeout = dispatch_group_wait(taskTimeoutGroup, waitUntil) != 0;
+      if (didTimeout) {
+           kill(task.processIdentifier, SIGKILL);
+    }
     [stdoutHandle closeFile];
     [stderrHandle closeFile];
   }, YES);
 
+  if (didTimeout && retry > 0) {
+        NSTask *retryTask = CreateTaskInSameProcessGroup();
+        retryTask.arguments = task.arguments;
+        retryTask.environment = task.environment;
+        retryTask.launchPath = task.launchPath;
+        return LaunchTaskAndCaptureOutputWithTimeoutAndRetry(retryTask, description, timeout, retry--);
+  }
   NSString *stdoutOutput = [stdoutArray componentsJoinedByString:@"\n"];
   NSString *stderrOutput = [stderrArray componentsJoinedByString:@"\n"];
 
