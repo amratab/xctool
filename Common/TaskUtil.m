@@ -316,8 +316,6 @@ NSDictionary *LaunchTaskAndCaptureOutputWithTimeoutAndRetry(NSTask *task, NSStri
       [stderrArray addObject:line];
     }
   }, NULL, ^{
-    LaunchTaskAndMaybeLogCommand(task, description);
-    [task waitUntilExit];
     dispatch_group_t taskTimeoutGroup = dispatch_group_create();
     [task waitUntilExit];
     dispatch_group_async(taskTimeoutGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
