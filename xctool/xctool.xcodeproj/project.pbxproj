@@ -322,6 +322,7 @@
 		AAF3344A1806A47E00928A00 /* Options+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Options+Testing.m"; sourceTree = "<group>"; };
 		AAF3344D1806A48A00928A00 /* TestRunStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRunStateTests.m; sourceTree = "<group>"; };
 		AAF3344E1806A48A00928A00 /* OCUnitTestRunnerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCUnitTestRunnerTests.m; sourceTree = "<group>"; };
+		BAB5B3401D4F137100907C68 /* notify_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = notify_common.h; sourceTree = "<group>"; };
 		C9D5B9871733CC2100011C1F /* ArchiveAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiveAction.h; sourceTree = "<group>"; };
 		C9D5B9881733CC2100011C1F /* ArchiveAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiveAction.m; sourceTree = "<group>"; };
 		CC0743781BB9E92B0075E407 /* XCToolUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCToolUtil.h; sourceTree = "<group>"; };
@@ -775,6 +776,7 @@
 			children = (
 				CC229B181946413400E11C30 /* SimulatorInfo.h */,
 				CCF6EE48195BA918005BA335 /* SimulatorInfo.m */,
+				BAB5B3401D4F137100907C68 /* notify_common.h */,
 			);
 			name = SimulatorInfo;
 			sourceTree = "<group>";
@@ -1047,6 +1049,15 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(FRAMEWORK_SEARCH_PATHS_0700)",
+					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks",
+					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+					"$(DEVELOPER_DIR)/../SharedFrameworks",
+					"$(DEVELOPER_DIR)/Library/PrivateFrameworks",
+					"$(DEVELOPER_DIR)/Library/MigrationFrameworks",
+					"$(SRCROOT)/../Vendor",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1056,6 +1067,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1078,8 +1090,18 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(FRAMEWORK_SEARCH_PATHS_0700)",
+					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks",
+					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+					"$(DEVELOPER_DIR)/../SharedFrameworks",
+					"$(DEVELOPER_DIR)/Library/PrivateFrameworks",
+					"$(DEVELOPER_DIR)/Library/MigrationFrameworks",
+					"$(SRCROOT)/../Vendor",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1093,6 +1115,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "xctool/xctool-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				PRODUCT_NAME = xctool;
 			};
 			name = Debug;
@@ -1102,6 +1125,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "xctool/xctool-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				PRODUCT_NAME = xctool;
 			};
 			name = Release;

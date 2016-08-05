@@ -25,20 +25,48 @@
 #import "SimRuntime.h"
 #import "XcodeBuildSettings.h"
 #import "XCToolUtil.h"
+#import "notify_common.h"
+#include <pthread.h>
+
 
 static const NSInteger KProductTypeIphone = 1;
 static const NSInteger KProductTypeIpad = 2;
+void cancel_all_notifications(void);
+static int token_fd = -1, token_mach_port = -1, token_signal = -1;
 
-@interface DTiPhoneSimulatorSystemRoot (PlatformName)
-- (NSString *)platformName;
-@end
-
-@implementation DTiPhoneSimulatorSystemRoot (PlatformName)
-- (NSString *)platformName
+void
+cancel_all_notifications(void)
 {
-  return [[[[[self runtime] platformPath] lastPathComponent] stringByDeletingPathExtension] lowercaseString];
+  if (token_fd != -1)
+    notify_cancel(token_fd);
+  if (token_mach_port != -1)
+    notify_cancel(token_mach_port);
+  if (token_signal != -1)
+    notify_cancel(token_signal);
 }
+
+@interface MachPortDelegate : NSObject <NSMachPortDelegate>
+
 @end
+
+@implementation MachPortDelegate
+
+- (void)handleMachMessage:(void *)msg {
+  NSLog(@"Mach Message Received");
+}
+
+@end
+
+//@interface DTiPhoneSimulatorSystemRoot (PlatformName)
+//- (NSString *)platformName;
+//@end
+//
+//@implementation DTiPhoneSimulatorSystemRoot (PlatformName)
+//- (NSString *)platformName
+//{
+//  return [[[[[self runtime] platformPath] lastPathComponent] stringByDeletingPathExtension] lowercaseString];
+//}
+//@end
 
 @interface SimulatorInfo ()
 @property (nonatomic, assign) cpu_type_t cpuType;
@@ -195,32 +223,8 @@ static const NSInteger KProductTypeIpad = 2;
       }
       break;
   }
-
-  DTiPhoneSimulatorSystemRoot *systemRoot = [SimulatorInfo _systemRootWithSDKPath:_buildSettings[Xcode_SDKROOT]];
-  if (!systemRoot) {
-    return _deviceName;
-  }
-
-  // return lowest device that has configuration with simulated sdk where lowest is defined
-  // by the order in the returned array of devices from `-[SimDeviceSet availableDevices]`
-  SimRuntime *runtime = systemRoot.runtime;
-  NSMutableArray *supportedDeviceTypes = [NSMutableArray array];
-  for (SimDevice *device in [[SimDeviceSet defaultSet] availableDevices]) {
-    if (![device.runtime isEqual:runtime]) {
-      continue;
-    }
-
-    if ([self simulatedCpuType] == CPU_TYPE_ANY ||
-        [[[device deviceType] supportedArchs] containsObject:@([self simulatedCpuType])]) {
-      [supportedDeviceTypes addObject:device.deviceType];
-      // we need only first one
-      break;
-    }
-  }
-
-  NSAssert([supportedDeviceTypes count] > 0, @"There are no available devices that support provided sdk: %@. Supported devices: %@", [systemRoot sdkVersion], [[SimDeviceType supportedDevices] valueForKeyPath:@"name"]);
-  _deviceName = [supportedDeviceTypes[0] name];
-  return _deviceName;
+  _deviceName = @"iPhone 6";
+  return @"iPhone 6";
 }
 
 - (NSString *)simulatedArchitecture
@@ -252,12 +256,12 @@ static const NSInteger KProductTypeIpad = 2;
 
 - (NSString *)simulatedSdkRootPath
 {
-  return [[self systemRootForSimulatedSdk] sdkRootPath];
+  return @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk";
 }
 
 - (NSString *)simulatedSdkShortVersion
 {
-  return [[[self systemRootForSimulatedSdk] runtime] versionString];
+  return @"10.0";
 }
 
 - (NSString *)simulatedSdkName
@@ -266,31 +270,19 @@ static const NSInteger KProductTypeIpad = 2;
     return _buildSettings[Xcode_SDK_NAME];
   }
 
-  DTiPhoneSimulatorSystemRoot *systemRoot = [self systemRootForSimulatedSdk];
-  NSString *platformName = [systemRoot platformName];
-  return [platformName stringByAppendingString:[self simulatedSdkVersion]];
-}
-
-- (DTiPhoneSimulatorSystemRoot *)systemRootForSimulatedSdk
-{
-  NSString *platform = _buildSettings[Xcode_PLATFORM_NAME];
-  if (!platform) {
-    platform = [[[_buildSettings[Xcode_PLATFORM_DIR] lastPathComponent] stringByDeletingPathExtension] lowercaseString];
-  }
-  NSAssert([platform isEqualToString:@"iphonesimulator"] || [platform isEqualToString:@"macosx"] || [platform isEqualToString:@"appletvsimulator"], @"Platform '%@' is not yet supported.", platform);
-  NSString *sdkVersion = [self simulatedSdkVersion];
-  DTiPhoneSimulatorSystemRoot *systemRoot = [SimulatorInfo _systemRootForPlatform:platform sdkVersion:sdkVersion];
-  NSAssert(systemRoot != nil, @"Unable to instantiate DTiPhoneSimulatorSystemRoot for platform %@ and sdk version %@. Available roots: %@", platform, sdkVersion, [DTiPhoneSimulatorSystemRoot knownRoots]);
-  return systemRoot;
+  return @"iphonesimulator10.0";
 }
 
 - (SimRuntime *)simulatedRuntime
 {
-  if (!_simulatedRuntime) {
-    _simulatedRuntime = [[self systemRootForSimulatedSdk] runtime];
-    NSAssert(_simulatedRuntime != nil, @"Unable to find simulated runtime for simulated sdk of version %@ at path %@. Supported runtimes: %@", [[self systemRootForSimulatedSdk] sdkVersion], [[self systemRootForSimulatedSdk] sdkRootPath], [SimRuntime supportedRuntimes]);
+  NSArray *runTimeArray = [SimRuntime supportedRuntimes];
+  for (SimRuntime* runTime in runTimeArray) {
+    if ([[runTime name]  isEqual: @"iOS 10.0"]) {
+      _simulatedRuntime = runTime;
+      return _simulatedRuntime;
+    }
   }
-  return _simulatedRuntime;
+  return nil;
 }
 
 - (SimDevice *)simulatedDevice
@@ -313,6 +305,9 @@ static const NSInteger KProductTypeIpad = 2;
 
     NSAssert(_simulatedDevice != nil, @"Simulator with name \"%@\" doesn't have configuration with sdk version \"%@\". Available configurations: %@.", [self simulatedDeviceInfoName], runtime.versionString, [SimulatorInfo _availableDeviceConfigurationsInHumanReadableFormat]);
   }
+  [_simulatedDevice registerNotificationHandler:^{
+    NSLog(@"Simulator received a notification");
+  }];
   return _simulatedDevice;
 }
 
@@ -449,8 +444,13 @@ static const NSInteger KProductTypeIpad = 2;
 
 + (SimRuntime *)_runtimeForSDKPath:(NSString *)sdkPath
 {
-  DTiPhoneSimulatorSystemRoot *root = [SimulatorInfo _systemRootWithSDKPath:sdkPath];
-  return [root runtime];
+  NSArray *runTimeArray = [SimRuntime supportedRuntimes];
+  for (SimRuntime* runTime in runTimeArray) {
+      if ([[runTime name]  isEqual: @"iOS 10.0"]) {
+        return runTime;
+      }
+  }
+  return nil;
 }
 
 + (NSArray *)_availableDeviceConfigurationsInHumanReadableFormat
@@ -477,49 +477,8 @@ static NSDictionary *__systemRootsSdkPathMap;
 
 + (void)_warmUpDTiPhoneSimulatorSystemRootCaches
 {
-  // cache system roots
-  NSArray *roots = [DTiPhoneSimulatorSystemRoot knownRoots];
-
-  // create a map
-  NSMutableDictionary *platformVersionMap = [NSMutableDictionary new];
-  NSMutableDictionary *pathMap = [NSMutableDictionary new];
-  for (DTiPhoneSimulatorSystemRoot *root in roots) {
-    pathMap[root.sdkRootPath] = root;
-    if (!platformVersionMap[root.platformName]) {
-      platformVersionMap[root.platformName] = [NSMutableDictionary dictionary];
-    }
-    platformVersionMap[root.platformName][root.sdkVersion] = root;
-  }
-  __systemRootsSdkPlatformVersionMap = [platformVersionMap copy];
-  __systemRootsSdkPathMap = [pathMap copy];
-}
-
-+ (DTiPhoneSimulatorSystemRoot *)_systemRootWithSDKPath:(NSString *)path
-{
-  // In Xcode 6 latest sdk path could be a symlink to iPhoneSimulator.sdk.
-  // It should be resolved before comparing with `knownRoots` paths.
-  path = [path stringByResolvingSymlinksInPath];
-  return __systemRootsSdkPathMap[path];
-}
-
-+ (DTiPhoneSimulatorSystemRoot *)_systemRootForPlatform:(NSString *)platform sdkVersion:(NSString *)version
-{
-  for (NSString *cachedPlatform in  __systemRootsSdkPlatformVersionMap) {
-    // sometimes platform may include version, for example, iphonesimulator9.2
-    if ([cachedPlatform commonPrefixWithString:platform options:NSCaseInsensitiveSearch].length < 5) {
-      continue;
-    }
-    NSDictionary *versions = __systemRootsSdkPlatformVersionMap[cachedPlatform];
-    for (NSString *cachedVersion in versions) {
-      // sdk version of system root usually consists of 2 numbers, like 9.2
-      // but requested sdk version could have 3 numbers, like 9.2.1.
-      if ([cachedVersion hasPrefix:version] || [version hasPrefix:cachedVersion]) {
-        return versions[cachedVersion];
-      }
-    }
-    break;
-  }
-  return nil;
 }
 
 @end
+
+

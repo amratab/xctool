@@ -164,19 +164,7 @@ BOOL RemoveSimulatorContentAndSettings(SimulatorInfo *simulatorInfo, NSString **
 
 BOOL VerifySimulators(NSString **errorMessage)
 {
-  if (!NSClassFromString(@"SimVerifier")) {
-    *errorMessage = [NSString stringWithFormat:@"SimVerifier class is not available."];
-    return NO;
-  }
-
-  NSError *error = nil;
-  BOOL result = [[SimVerifier sharedVerifier] verifyAllWithError:&error];
-  if (!result || error) {
-    *errorMessage = [NSString stringWithFormat:@"%@; %@.",
-                     error.localizedDescription ?: @"Unknown error.",
-                     [error.userInfo[NSUnderlyingErrorKey] localizedDescription] ?: @""];
-  }
-  return result;
+  return YES;
 }
 
 BOOL ShutdownSimulator(SimulatorInfo *simulatorInfo, NSString **errorMessage)

@@ -34,7 +34,7 @@ static id SenTestClassEnumerator_init(id self, SEL cmd)
     Class cls = classList[i];
 
     if ([self isValidClass:cls]) {
-      [classes addObject:[NSValue valueWithPointer:cls]];
+      [classes addObject:[NSValue valueWithPointer:(__bridge const void * _Nullable)(cls)]];
     }
   }
 
