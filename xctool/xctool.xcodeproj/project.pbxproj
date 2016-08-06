@@ -322,7 +322,6 @@
 		AAF3344A1806A47E00928A00 /* Options+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Options+Testing.m"; sourceTree = "<group>"; };
 		AAF3344D1806A48A00928A00 /* TestRunStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRunStateTests.m; sourceTree = "<group>"; };
 		AAF3344E1806A48A00928A00 /* OCUnitTestRunnerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCUnitTestRunnerTests.m; sourceTree = "<group>"; };
-		BAB5B3401D4F137100907C68 /* notify_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = notify_common.h; sourceTree = "<group>"; };
 		C9D5B9871733CC2100011C1F /* ArchiveAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiveAction.h; sourceTree = "<group>"; };
 		C9D5B9881733CC2100011C1F /* ArchiveAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiveAction.m; sourceTree = "<group>"; };
 		CC0743781BB9E92B0075E407 /* XCToolUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCToolUtil.h; sourceTree = "<group>"; };
@@ -776,7 +775,6 @@
 			children = (
 				CC229B181946413400E11C30 /* SimulatorInfo.h */,
 				CCF6EE48195BA918005BA335 /* SimulatorInfo.m */,
-				BAB5B3401D4F137100907C68 /* notify_common.h */,
 			);
 			name = SimulatorInfo;
 			sourceTree = "<group>";

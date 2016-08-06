@@ -25,48 +25,10 @@
 #import "SimRuntime.h"
 #import "XcodeBuildSettings.h"
 #import "XCToolUtil.h"
-#import "notify_common.h"
-#include <pthread.h>
 
 
 static const NSInteger KProductTypeIphone = 1;
 static const NSInteger KProductTypeIpad = 2;
-void cancel_all_notifications(void);
-static int token_fd = -1, token_mach_port = -1, token_signal = -1;
-
-void
-cancel_all_notifications(void)
-{
-  if (token_fd != -1)
-    notify_cancel(token_fd);
-  if (token_mach_port != -1)
-    notify_cancel(token_mach_port);
-  if (token_signal != -1)
-    notify_cancel(token_signal);
-}
-
-@interface MachPortDelegate : NSObject <NSMachPortDelegate>
-
-@end
-
-@implementation MachPortDelegate
-
-- (void)handleMachMessage:(void *)msg {
-  NSLog(@"Mach Message Received");
-}
-
-@end
-
-//@interface DTiPhoneSimulatorSystemRoot (PlatformName)
-//- (NSString *)platformName;
-//@end
-//
-//@implementation DTiPhoneSimulatorSystemRoot (PlatformName)
-//- (NSString *)platformName
-//{
-//  return [[[[[self runtime] platformPath] lastPathComponent] stringByDeletingPathExtension] lowercaseString];
-//}
-//@end
 
 @interface SimulatorInfo ()
 @property (nonatomic, assign) cpu_type_t cpuType;
@@ -305,9 +267,6 @@ cancel_all_notifications(void)
 
     NSAssert(_simulatedDevice != nil, @"Simulator with name \"%@\" doesn't have configuration with sdk version \"%@\". Available configurations: %@.", [self simulatedDeviceInfoName], runtime.versionString, [SimulatorInfo _availableDeviceConfigurationsInHumanReadableFormat]);
   }
-  [_simulatedDevice registerNotificationHandler:^{
-    NSLog(@"Simulator received a notification");
-  }];
   return _simulatedDevice;
 }
 
