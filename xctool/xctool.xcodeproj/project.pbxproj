@@ -1053,7 +1053,6 @@
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/Library/Frameworks",
 					"$(DEVELOPER_DIR)/../SharedFrameworks",
 					"$(DEVELOPER_DIR)/Library/PrivateFrameworks",
-					"$(DEVELOPER_DIR)/Library/MigrationFrameworks",
 					"$(SRCROOT)/../Vendor",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1094,7 +1093,6 @@
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/Library/Frameworks",
 					"$(DEVELOPER_DIR)/../SharedFrameworks",
 					"$(DEVELOPER_DIR)/Library/PrivateFrameworks",
-					"$(DEVELOPER_DIR)/Library/MigrationFrameworks",
 					"$(SRCROOT)/../Vendor",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;

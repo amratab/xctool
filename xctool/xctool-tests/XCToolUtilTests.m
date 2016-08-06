@@ -189,7 +189,6 @@
 
 - (void)testCpuTypeForTestBundleAtPath
 {
-  assertThatInt(CpuTypeForTestBundleAtPath(TEST_DATA @"tests-ios-test-bundle/SenTestingKit_Assertion.octest"), equalToInt(CPU_TYPE_I386));
   assertThatInt(CpuTypeForTestBundleAtPath(TEST_DATA @"tests-ios-test-bundle/TestProject-Library-32And64bitTests.xctest"), equalToInt(CPU_TYPE_ANY));
   assertThatInt(CpuTypeForTestBundleAtPath(TEST_DATA @"tests-ios-test-bundle/TestProject-Library-64bitTests.xctest"), equalToInt(CPU_TYPE_X86_64));
 }
