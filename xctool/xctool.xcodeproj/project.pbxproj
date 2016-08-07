@@ -826,6 +826,12 @@
 				LastTestingUpgradeCheck = 0700;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Facebook, Inc.";
+				TargetAttributes = {
+					283CCA4116C2EA3700F2E343 = {
+						DevelopmentTeam = 57Y47U492U;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 283CCA3D16C2EA3700F2E343 /* Build configuration list for PBXProject "xctool" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1109,6 +1115,8 @@
 		283CCA5116C2EA3800F2E343 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				DEVELOPMENT_TEAM = 57Y47U492U;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "xctool/xctool-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
@@ -1119,6 +1127,8 @@
 		283CCA5216C2EA3800F2E343 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				DEVELOPMENT_TEAM = 57Y47U492U;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "xctool/xctool-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;

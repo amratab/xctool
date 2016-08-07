@@ -9,14 +9,6 @@
 /* Begin PBXBuildFile section */
 		282BFE1B171602C60022F9FF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 282BFE1A171602C60022F9FF /* Cocoa.framework */; };
 		282BFE2B1716044C0022F9FF /* otest-shim.m in Sources */ = {isa = PBXBuildFile; fileRef = 283CCA9916C2EE4C00F2E343 /* otest-shim.m */; };
-		2839BE60183FEB6F000D7BEC /* SenTestClassEnumeratorFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2839BE5E183FEB6F000D7BEC /* SenTestClassEnumeratorFix.h */; };
-		2839BE61183FEB6F000D7BEC /* SenTestClassEnumeratorFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2839BE5E183FEB6F000D7BEC /* SenTestClassEnumeratorFix.h */; };
-		2839BE62183FEB6F000D7BEC /* SenTestClassEnumeratorFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 2839BE5F183FEB6F000D7BEC /* SenTestClassEnumeratorFix.m */; };
-		2839BE63183FEB6F000D7BEC /* SenTestClassEnumeratorFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 2839BE5F183FEB6F000D7BEC /* SenTestClassEnumeratorFix.m */; };
-		2839BE8B1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2839BE891843CCFF000D7BEC /* SenTestCaseInvokeTestFix.h */; };
-		2839BE8C1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2839BE891843CCFF000D7BEC /* SenTestCaseInvokeTestFix.h */; };
-		2839BE8D1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 2839BE8A1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.m */; };
-		2839BE8E1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 2839BE8A1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.m */; };
 		283CCA9A16C2EE4C00F2E343 /* otest-shim.m in Sources */ = {isa = PBXBuildFile; fileRef = 283CCA9916C2EE4C00F2E343 /* otest-shim.m */; };
 		2887CC41181E0D9200B0D049 /* DuplicateTestNameFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2887CC3F181E0D9200B0D049 /* DuplicateTestNameFix.h */; };
 		2887CC42181E0D9200B0D049 /* DuplicateTestNameFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2887CC3F181E0D9200B0D049 /* DuplicateTestNameFix.h */; };
@@ -62,10 +54,6 @@
 		282BFE1E171602C60022F9FF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		282BFE1F171602C60022F9FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		282BFE29171602F80022F9FF /* otest-shim-osx.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "otest-shim-osx.xcconfig"; sourceTree = "<group>"; };
-		2839BE5E183FEB6F000D7BEC /* SenTestClassEnumeratorFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SenTestClassEnumeratorFix.h; sourceTree = "<group>"; };
-		2839BE5F183FEB6F000D7BEC /* SenTestClassEnumeratorFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SenTestClassEnumeratorFix.m; sourceTree = "<group>"; };
-		2839BE891843CCFF000D7BEC /* SenTestCaseInvokeTestFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SenTestCaseInvokeTestFix.h; sourceTree = "<group>"; };
-		2839BE8A1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SenTestCaseInvokeTestFix.m; sourceTree = "<group>"; };
 		283CCA8C16C2EE4C00F2E343 /* otest-shim-ios.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "otest-shim-ios.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		283CCA9416C2EE4C00F2E343 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		283CCA9716C2EE4C00F2E343 /* otest-shim-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "otest-shim-Prefix.pch"; sourceTree = "<group>"; };
@@ -167,10 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				283CCA9916C2EE4C00F2E343 /* otest-shim.m */,
-				2839BE891843CCFF000D7BEC /* SenTestCaseInvokeTestFix.h */,
-				2839BE8A1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.m */,
-				2839BE5E183FEB6F000D7BEC /* SenTestClassEnumeratorFix.h */,
-				2839BE5F183FEB6F000D7BEC /* SenTestClassEnumeratorFix.m */,
 				283CCA9616C2EE4C00F2E343 /* Supporting Files */,
 			);
 			path = "otest-shim";
@@ -222,12 +206,10 @@
 				CC8D775A196623160035CC60 /* NSInvocationInSetFix.h in Headers */,
 				28E44D531811024F00211BD5 /* ParseTestName.h in Headers */,
 				2887CC48181E145D00B0D049 /* TestingFramework.h in Headers */,
-				2839BE8C1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.h in Headers */,
 				3892D75A1815ACE200E68652 /* EventGenerator.h in Headers */,
 				28897FCA173E50F9004BA024 /* Swizzle.h in Headers */,
 				28E28FB517968EC50072376C /* ReporterEvents.h in Headers */,
 				90F7485518E4FAFF00600D5C /* SenIsSuperclassOfClassPerformanceFix.h in Headers */,
-				2839BE61183FEB6F000D7BEC /* SenTestClassEnumeratorFix.h in Headers */,
 				2887CC42181E0D9200B0D049 /* DuplicateTestNameFix.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,12 +222,10 @@
 				CC8D7759196623160035CC60 /* NSInvocationInSetFix.h in Headers */,
 				3892D7591815ACE200E68652 /* EventGenerator.h in Headers */,
 				2887CC47181E145D00B0D049 /* TestingFramework.h in Headers */,
-				2839BE8B1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.h in Headers */,
 				28897FC9173E50F9004BA024 /* Swizzle.h in Headers */,
 				28E28FB417968EC50072376C /* ReporterEvents.h in Headers */,
 				AA318BEA17E9B43000BF159E /* XCTest.h in Headers */,
 				90F7485418E4FAFF00600D5C /* SenIsSuperclassOfClassPerformanceFix.h in Headers */,
-				2839BE60183FEB6F000D7BEC /* SenTestClassEnumeratorFix.h in Headers */,
 				2887CC41181E0D9200B0D049 /* DuplicateTestNameFix.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,9 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2887CC44181E0D9200B0D049 /* DuplicateTestNameFix.m in Sources */,
-				2839BE63183FEB6F000D7BEC /* SenTestClassEnumeratorFix.m in Sources */,
 				90F7485718E4FAFF00600D5C /* SenIsSuperclassOfClassPerformanceFix.m in Sources */,
-				2839BE8E1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.m in Sources */,
 				CC8D775C196623160035CC60 /* NSInvocationInSetFix.m in Sources */,
 				2887CC4A181E145D00B0D049 /* TestingFramework.m in Sources */,
 				3892D75C1815ACE200E68652 /* EventGenerator.m in Sources */,
@@ -373,9 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2887CC43181E0D9200B0D049 /* DuplicateTestNameFix.m in Sources */,
-				2839BE62183FEB6F000D7BEC /* SenTestClassEnumeratorFix.m in Sources */,
 				90F7485618E4FAFF00600D5C /* SenIsSuperclassOfClassPerformanceFix.m in Sources */,
-				2839BE8D1843CCFF000D7BEC /* SenTestCaseInvokeTestFix.m in Sources */,
 				CC8D775B196623160035CC60 /* NSInvocationInSetFix.m in Sources */,
 				2887CC49181E145D00B0D049 /* TestingFramework.m in Sources */,
 				3892D75B1815ACE200E68652 /* EventGenerator.m in Sources */,
