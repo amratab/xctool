@@ -1,3 +1,5 @@
+This is a fork of Facebook xctool with fixes for Xcode 8 (Only iOS 10 + iPhone 6). Apply the diff and [unsign](https://github.com/steakknife/unsign) `xcodebuild` binary, everything works again. Hope Apple could roll out multi-sim soon.
+
 # xctool
 
 __xctool__ is a replacement for Apple's __xcodebuild__ that makes it
